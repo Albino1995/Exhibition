@@ -1,0 +1,92 @@
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.head {
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 15px;
+    background-color: #31c27c;
+}
+
+.head span {
+    color: #ffffff;
+    font-size: 36px;
+}
+
+.logout {
+    padding: 2px 20px;
+    line-height: 28px;
+    border-radius: 25px;
+    font-size: 30px;
+    background: #149c5a;
+    color: #ffffff;
+    border: none;
+}
+
+.nav {
+    font-size: 40px;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.nav a {
+    padding: 25px;
+    width: 25%;
+}
+
+.active {
+    border-bottom: 5px solid #31c27c;
+}
+
+.suggestion {
+    padding: 20px;
+}
+
+.form {
+    margin-top: 30px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #dddddd;
+    border-radius: 20px;
+}
+
+.form div {
+    margin: 20px 0;
+}
+
+label {
+    padding: 7px 20px 5px 0;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.submit {
+    margin-top: 30px;
+    font-size: 30px!important;
+}
+
+.error-mes {
+    font-size: 20px;
+    color: #ff0000;
+}
+
+.success {
+    margin-top: 30px;
+    padding: 50px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #dddddd;
+    border-radius: 20px;
+}
+
+.success span {
+    color: #7e8c8d;
+    font-size: 30px;
+}

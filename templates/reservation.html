@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %}
+{% load staticfiles %}
+<head>
+    {% block title %}
+        <title>预约展厅|智慧展厅</title>
+    {% endblock %}
+    {% block css %}
+        <link rel="stylesheet" type="text/css" href="{% static "css/reservation.css" %}">
+        <link href="{% static "css/bootstrap-datetimepicker.min.css" %}" rel="stylesheet" media="screen">
+    {% endblock %}
+</head>
+
+<body>
+{% block content %}
+    <div class="content">
+        <nav class="nav">
+            <a class="check" href="{% url 'index' %}">预约查询</a>
+            <a class="reservation active" href="{% url 'reservation' %}">预约展厅</a>
+            <a class="recording" href="{% url 'record' %}">预约记录</a>
+            <a class="message" href="{% url 'suggestion' %}">提交意见</a>
+        </nav>
+    </div>
+    <div class="reservation">
+        <form class="form" method="post" action="" novalidate>
+            {% csrf_token %}
+            <div>
+                <label>预约日期 <span style="color:#ff0000">*</span></label>
+                <div class="form-group" style="margin: 0;">
+                    <div class="input-group input-group-lg date form_date col-md-5" data-date=""
+                         data-date-format="yyyy-mm-dd"
+                         data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="margin: 0;">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        <input type="text" class="form-control" placeholder="" name="date" readonly value="{{ reservation_form.data.date }}">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    </div>
+                    <input type="hidden" id="dtp_input2" value=""/><br/>
+                </div>
+            </div>
+            <div class="input-group-lg">
+                <label>场次 <span style="color:#ff0000">*</span></label>
+                <select class="form-control" name="field">
+                    <option {% if reservation_form.data.field == '9:00 - 12:00' %}selected{% endif %}>9:00 - 12:00</option>
+                    <option {% if reservation_form.data.field == '14:00 - 17:00' %}selected{% endif %}>14:00 - 17:00</option>
+                </select>
+            </div>
+            <div class="input-group-lg">
+                <label>客户名称 <span style="color:#ff0000">*</span></label>
+                <input type="text" class="form-control" placeholder="" name="client_name" value="{{ reservation_form.data.client_name }}"}>
+            </div>
+            <div class="input-group-lg">
+                <label>客户级别 <span style="color:#ff0000">*</span></label>
+                <input type="text" class="form-control" placeholder="" name="client_level" value="{{ reservation_form.data.client_level }}">
+            </div>
+            <div class="input-group-lg">
+                <label>预约部门<span style="color:#ff0000">*</span></label>
+                <input type="text" class="form-control" placeholder="" name="department" value="{{ reservation_form.data.department }}">
+            </div>
+            <div class="input-group-lg">
+                <label>预约者 <span style="color:#ff0000">*</span></label>
+                <input type="text" class="form-control" placeholder="" name="applicant" value="{{ reservation_form.data.applicant }}">
+            </div>
+            <div class="input-group-lg">
+                <label>预约者联系方式 <span style="color:#ff0000">*</span></label>
+                <input type="text" class="form-control" placeholder="" name="mobile" value="{{ reservation_form.data.mobile }}">
+            </div>
+            <div class="input-group-lg">
+                <label>备注 </label>
+                <textarea id="remark" class="form-control" style="height: 200px" placeholder="" name="remarks">{{ reservation_form.data.remarks }}</textarea>
+            </div>
+            <div class="error-mes">
+                {% for key,error in reservation_form.errors.items %}
+                    {{ error }}
+                {% endfor %}
+                <span>
+                    {{ msg }}
+                </span>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg submit">提 交</button>
+        </form>
+    </div>
+{% endblock %}
+</body>
+{% block scripts %}
+    <script src="{% static 'js/bootstrap-datetimepicker.js' %}">
+    </script>
+    <script src="{% static 'js/calendar.js' %}"></script>
+{% endblock %}
+</html>

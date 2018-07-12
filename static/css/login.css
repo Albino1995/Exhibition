@@ -1,0 +1,50 @@
+.content {
+    display: flex;
+    justify-content: center;
+    margin-top: 200px;
+}
+
+.login-form {
+    width: 85%;
+}
+
+.form {
+    box-shadow: 0 0 40px rgba(0, 0, 0, .3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 5px;
+}
+
+.form-content {
+    width: 90%;
+    margin-bottom: 50px;
+}
+
+.form-heading {
+    width: 100%;
+    margin-bottom: 30px;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #dddddd;
+}
+
+.title {
+    font-weight: 600;
+    font-size: 40px;
+    padding: 20px 0 20px 40px;
+}
+
+.form-content div {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+button {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.error-mes {
+    color: #ff0000;
+}

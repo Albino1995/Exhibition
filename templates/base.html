@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    {% block title %}{% endblock %}
+    <meta charset="UTF-8">
+    {% block css %}{% endblock %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+{% block head %}
+    <div class="head">
+        <span>{{ request.user.username }}，欢迎使用展厅预约服务</span>
+        <button class="logout">
+            <a href="{% url 'logout' %}"><span style="color: #fff">退出登录</span></a>
+        </button>
+    </div>
+{% endblock %}
+{% block content %}
+{% endblock %}
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+{% block scripts %}{% endblock %}
+
+
+</html>

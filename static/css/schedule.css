@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+#schedule-box {
+    align-self: center;
+    width: 80%;
+    margin-top: 50px;
+    padding: 35px 20px;
+    font-size: 32px;
+}
+
+.schedule-hd {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+}
+
+.today {
+    flex: 1;
+    text-align: center;
+}
+
+.ul-box {
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.ul-box > li {
+    float: left;
+    width: 14.28%;
+    text-align: center;
+    padding: 5px 0;
+}
+
+.other-month {
+    color: #999999;
+}
+
+.current-month {
+    color: #333333;
+}
+
+.today-style {
+    border-radius: 50%;
+    background: #58d321;
+}
+
+.arrow {
+    cursor: pointer;
+}
+
+.dayStyle {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    padding: 1px;
+}
+
+.today-flag {
+    background: #00C2B1;
+    color: #fff;
+}
+
+.boxshaw {
+    box-shadow: 2px 2px 15px 2px #e3e3e3;
+}
+
+.selected-style {
+    background: #00BDFF;
+    color: #ffffff;
+}
+
+#h3Ele {
+    text-align: center;
+    padding: 10px;
+}
+
+.iconfont {
+    font-size: 32px !important;
+}

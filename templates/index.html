@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %}
+{% load staticfiles %}
+<head>
+    {% block title %}
+        <title>预约查询|智慧展厅</title>
+    {% endblock %}
+    {% block css %}
+        <link rel="stylesheet" type="text/css" href="{% static "css/index.css" %}">
+        <link rel="stylesheet" href="https://at.alicdn.com/t/font_234130_nem7eskcrkpdgqfr.css">
+        <link rel="stylesheet" type="text/css" href="{% static "css/schedule.css" %}">
+        <link href="{% static "css/bootstrap-datetimepicker.min.css" %}" rel="stylesheet" media="screen">
+    {% endblock %}
+</head>
+
+<body>
+{% block content %}
+    <div class="content">
+        <nav class="nav">
+            <a class="check active" href="{% url 'index' %}">预约查询</a>
+            <a class="reservation" href="{% url 'reservation' %}">预约展厅</a>
+            <a class="recording" href="{% url 'record' %}">预约记录</a>
+            <a class="message" href="{% url 'suggestion' %}">提交意见</a>
+        </nav>
+    </div>
+    <div class="check">
+
+        <div class="result">
+            <form method="post" action="" class="check-form">
+                {% csrf_token %}
+                <div id='schedule-box' class="boxshaw"></div>
+                <input type="text" value="" placeholder="" style="display: none" id="date" name="date">
+                <input type="text" value="" placeholder="" style="display: none" id="go_reserve" name="reserve">
+                <input type="text" value="" placeholder="" style="display: none" id="field" name="field">
+                <button class="btn btn-primary btn-lg check-button" style="display: none">预约查询</button>
+            </form>
+            <div class="error-mes">
+                <span>
+                    {{ msg }}
+                </span>
+            </div>
+            <div class="field">
+                <span style="{% if flag %}display: inline{% endif %}">{{ date }}的预约情况如下：</span>
+                <span style="{% if flag %}display: inline{% endif %}">9:00 - 12:00场次的预约状态：
+                    {% if res.0 == 'empty' %}<span style="color: #31c27c;{% if flag %}display: inline{% endif %}"
+                                                   onclick="go_reserve(this.id)" id="first_field">
+                        可预约</span>{% else %}
+                        <span style="color:#8b0000;{% if flag %}display: inline{% endif %}">已预约</span>{% endif %}</span>
+                <span style="{% if flag %}display: inline{% endif %}">14:00 - 17:00场次的预约状态：
+                    {% if res.1 == 'empty' %}<span style="color: #31c27c;{% if flag %}display: inline{% endif %}"
+                                                   onclick="go_reserve(this.id)" id="last_field">
+                        可预约</span>{% else %}
+                        <span style="color:#8b0000;{% if flag %}display: inline{% endif %}">已预约</span>{% endif %}</span>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+</body>
+{% block scripts %}
+<script type="text/javascript">
+;(function (undefined) {
+    var _global;
+    //工具函数
+    //配置合并
+    function extend (def,opt,override) {
+        for(var k in opt){
+            if(opt.hasOwnProperty(k) && (!def.hasOwnProperty(k) || override)){
+                def[k] = opt[k]
+            }
+        }
+        return def;
+    }
+    //日期格式化
+    function formartDate (y,m,d,symbol) {
+        symbol = symbol || '-';
+        m = (m.toString())[1] ? m : '0'+m;
+        d = (d.toString())[1] ? d : '0'+d;
+        return y+symbol+m+symbol+d
+    }
+
+    function Schedule (opt) {
+        var def = {},
+            opt = extend(def,opt,true),
+            curDate = opt.date ? new Date(opt.date) : new Date(),
+            year = curDate.getFullYear(),
+            month = curDate.getMonth(),
+            day = curDate.getDate(),
+            currentYear = curDate.getFullYear(),
+            currentMonth = curDate.getMonth(),
+            currentDay = curDate.getDate(),
+            selectedDate = '',
+            el = document.querySelector(opt.el) || document.querySelector('body'),
+            _this = this;
+        var bindEvent = function (){
+            el.addEventListener('click',function(e){
+                switch (e.target.id) {
+                    case 'nextMonth':
+                        _this.nextMonthFun();
+                        break;
+                    case 'nextYear':
+                        _this.nextYearFun();
+                        break;
+                    case 'prevMonth':
+                        _this.prevMonthFun();
+                        break;
+                    case 'prevYear':
+                        _this.prevYearFun();
+                        break;
+                    default:
+                        break;
+                };
+                if(e.target.className.indexOf('currentDate') > -1){
+                    opt.clickCb && opt.clickCb(year, month+1, e.target.innerHTML);
+                    selectedDate = e.target.title;
+                    day = e.target.innerHTML;
+                    render();
+                }
+            },false)
+        }
+        var init = function () {
+            var scheduleHd = '<div class="schedule-hd">'+
+                                '<div>'+
+                                    '<span class="arrow icon iconfont icon-116leftarrowheads" id="prevYear" ></span>'+
+                                    '<span class="arrow icon iconfont icon-112leftarrowhead" id="prevMonth"></span>'+
+                                '</div>'+
+                                '<div class="today"></div>'+
+                                '<div>'+
+                                    '<span class="arrow icon iconfont icon-111arrowheadright" id="nextMonth"></span>'+
+                                    '<span class="arrow icon iconfont icon-115rightarrowheads" id="nextYear"></span>'+
+                                '</div>'+
+                            '</div>'
+            var scheduleWeek = '<ul class="week-ul ul-box">'+
+                                    '<li style="color: red">日</li>'+
+                                    '<li>一</li>'+
+                                    '<li>二</li>'+
+                                    '<li>三</li>'+
+                                    '<li>四</li>'+
+                                    '<li>五</li>'+
+                                    '<li style="color: red">六</li>'+
+                                '</ul>'
+            var scheduleBd = '<ul class="schedule-bd ul-box" ></ul>';
+            el.innerHTML = scheduleHd + scheduleWeek + scheduleBd;
+            bindEvent();
+            render();
+        }
+        var render = function () {
+            var fullDay = new Date(year,month+1,0).getDate(), //当月总天数
+            startWeek = new Date(year,month,1).getDay(), //当月第一天是周几
+            total = (fullDay+startWeek)%7 == 0 ? (fullDay+startWeek) : fullDay+startWeek+(7-(fullDay+startWeek)%7),//元素总个数
+            lastMonthDay = new Date(year,month,0).getDate(), //上月最后一天
+            eleTemp = [];
+            if(day > fullDay){
+                day = fullDay
+            }
+            for(var i = 0; i < total; i++){
+                if(i<startWeek){
+                    eleTemp.push('<li class="other-month"><span class="dayStyle">'+(lastMonthDay-startWeek+1+i)+'</span></li>')
+                }else if(i<(startWeek+fullDay)){
+                    var nowDate = formartDate(year,month+1,(i+1-startWeek),'-');
+                    var addClass = '';
+                    '{{ new_date }}' == nowDate && (addClass = 'selected-style');
+                    formartDate(currentYear,currentMonth+1,currentDay,'-') == nowDate && (addClass = 'today-flag');
+                    eleTemp.push('<li class="current-month" ><span onclick="get_date(this)" title='+nowDate+' class="currentDate dayStyle '+addClass+'">'+(i+1-startWeek)+'</span></li>')
+                }else{
+                    eleTemp.push('<li class="other-month"><span class="dayStyle">'+(i+1-(startWeek+fullDay))+'</span></li>')
+                }
+            }
+            el.querySelector('.schedule-bd').innerHTML = eleTemp.join('');
+            if ({{ new_date }} !== 0) {
+                changeTime('{{ new_date }}');
+            }
+            else {
+                el.querySelector('.today').innerHTML = formartDate(year,month+1,day,'-');
+            }
+        };
+        this.nextMonthFun = function () {
+            if(month+1 > 11){
+                year += 1;
+                month = 0;
+            }else{
+                month += 1;
+            }
+            render();
+            opt.nextMonthCb && opt.nextMonthCb(year,month+1,day);
+        },
+        this.nextYearFun = function () {
+            year += 1;
+            render();
+            opt.nextYeayCb && opt.nextYeayCb(year,month+1,day);
+        },
+        this.prevMonthFun = function () {
+            if(month-1 < 0){
+                year -= 1;
+                month = 11;
+            }else{
+                month -= 1;
+            }
+            render();
+            opt.prevMonthCb && opt.prevMonthCb(year,month+1,day);
+        },
+        this.prevYearFun = function () {
+            year -= 1;
+            render();
+            opt.prevYearCb && opt.prevYearCb(year,month+1,day);
+        }
+        function changeTime(time) {
+        var t = time.split("-");
+        if (t[1].length == 1)
+            t[1] = "0" + t[1];
+        if (t[2].length == 1)
+            t[2] = "0" + t[2];
+        el.querySelector('.today').innerHTML = t[0] + "-" + t[1] + "-" + t[2]
+        }
+        init();
+    }
+    //将插件暴露给全局对象
+    _global = (function(){return this || (0,eval)('this')}());
+    if(typeof module !== 'undefined' && module.exports){
+        module.exports = Schedule;
+    }else if (typeof define === "function" && define.amd){
+        define(function () {
+            return Schedule;
+        })
+    }else {
+        !('Schedule' in _global) && (_global.Schedule = Schedule);
+    }
+
+}());
+    var mySchedule = new Schedule({
+		el: '#schedule-box'
+	});
+    function get_date(nowDate) {
+        date = nowDate.title;
+        $('#date').attr('value', date);
+        $('.check-button').trigger("click");
+    }
+    function go_reserve(field) {
+        $('#date').attr('value', $('.today')[0].innerText);
+        $('#go_reserve').attr('value', 1);
+        $('#field').attr('value', field);
+        $('.check-button').trigger("click");
+    }
+    </script>
+{% endblock %}
+</html>

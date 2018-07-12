@@ -1,0 +1,85 @@
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.head {
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 15px;
+    background-color: #31c27c;
+}
+
+.head span {
+    color: #ffffff;
+    font-size: 36px;
+}
+
+.logout {
+    padding: 2px 20px;
+    line-height: 28px;
+    border-radius: 25px;
+    font-size: 30px;
+    background: #149c5a;
+    color: #ffffff;
+    border: none;
+}
+
+.nav {
+    font-size: 40px;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.nav a {
+    padding: 25px;
+    width: 25%;
+}
+
+.active {
+    border-bottom: 5px solid #31c27c;
+}
+
+.record {
+    margin: 50px 20px 20px 20px;
+    padding: 40px 70px 70px 70px;
+    border: 1px solid #dddddd;
+    border-radius: 20px;
+}
+
+.single_record {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 0;
+    border-bottom: 1px solid #dddddd;
+}
+
+.single_record span {
+    font-size: 36px;
+    color: #7e8c8d;
+}
+
+.cancel_type {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.no_record {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    font-size: 36px;
+    color: #7e8c8d;
+}
+
+.cancel {
+    margin-top: 30px;
+    font-size: 36px!important;
+}
+
+.type {
+    margin-top: 30px;
+    margin-left: 150px;
+    align-self: flex-end;
+}

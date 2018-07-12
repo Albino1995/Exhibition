@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %}
+{% load staticfiles %}
+<head>
+    {% block title %}
+        <title>预约记录|智慧展厅</title>
+    {% endblock %}
+    {% block css %}
+        <link rel="stylesheet" type="text/css" href="{% static "css/record.css" %}">
+        <link href="{% static "css/bootstrap-datetimepicker.min.css" %}" rel="stylesheet" media="screen">
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    <div class="content">
+        <nav class="nav">
+            <a class="check" href="{% url 'index' %}">预约查询</a>
+            <a class="reservation" href="{% url 'reservation' %}">预约展厅</a>
+            <a class="recording active" href="{% url 'record' %}">预约记录</a>
+            <a class="message" href="{% url 'suggestion' %}">提交意见</a>
+        </nav>
+    </div>
+    <div class="record">
+        {% if not records %}
+            <div class="no_record">
+                <span>暂无记录</span>
+            </div>
+        {% endif %}
+        {% for record in records %}
+            <div class="single_record">
+                <span>{{ record.date }}{{ record.field }}场次</span>
+                <form method="post" class="cancel_type">
+                    {% csrf_token %}
+                    {% if record.expired_or_not != '已完成' %}
+                    <input type="text" style="display: none" placeholder="" value="{{ record.id }}" name="id">
+                    <button type="submit" class="btn btn-primary btn-lg cancel">取消预约</button>
+                    {% endif %}
+                    <span class="type">{{ record.expired_or_not }}</span>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+</body>
+</html>

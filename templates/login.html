@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %}
+{% load staticfiles %}
+<head>
+    {% block title %}
+    <title>登录|智慧展厅</title>
+    {% endblock %}
+    {% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/login.css"%}">
+    {% endblock %}
+</head>
+<body>
+{% block head %}{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="login-form">
+        <form class="form" method="post" action="">
+            {% csrf_token %}
+            <div class="form-heading">
+                <h1 class="title">请登录</h1>
+            </div>
+            <div class="form-content">
+                <div class="input-group input-group-lg {% if login_form.errors.username %}errorput{% endif %}">
+                    <span class="input-group-addon">用 户</span>
+                    <input type="text" class="form-control" placeholder="请输入用户" name="username">
+                </div>
+                <div class="input-group input-group-lg {% if login_form.errors.password %}errorput{% endif %}">
+                    <span class="input-group-addon">密 码</span>
+                    <input type="password" class="form-control" placeholder="请输入密码" name="password">
+                </div>
+                <div class="error-mes">
+                    {% for key,error in login_form.errors.items %}
+                        {{ error }}
+                    {% endfor %}
+                    <span>
+                        {{ msg }}
+                    </span>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg">登 录</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>
+

@@ -1,0 +1,88 @@
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.head {
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 15px;
+    background-color: #31c27c;
+}
+
+.head span {
+    color: #ffffff;
+    font-size: 36px;
+}
+
+.logout {
+    padding: 2px 20px;
+    line-height: 28px;
+    border-radius: 25px;
+    font-size: 30px;
+    background: #149c5a;
+    color: #ffffff;
+    border: none;
+}
+
+.nav {
+    font-size: 40px;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.nav a {
+    padding: 25px;
+    width: 25%;
+}
+
+.active {
+    border-bottom: 5px solid #31c27c;
+}
+
+.check {
+    display: flex;
+    flex-direction: column;
+}
+
+#calendar {
+    margin-bottom: 45px;
+}
+
+.check-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.check-button {
+    margin-top: 70px;
+    font-size: 30px!important;
+    width: 50%;
+    align-self: center;
+}
+
+.error-mes {
+    font-size: 20px;
+    color: #ff0000;
+}
+
+.field {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.field span {
+    display: none;
+    font-size: 30px;
+    color: #7e8c8d;
+}
+
+.error-mes {
+    margin-top: 70px;
+    padding: 0 20px;
+    font-size: 20px;
+    color: #ff0000;
+}
