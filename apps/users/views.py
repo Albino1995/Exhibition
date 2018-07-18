@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
-from utils import LoginRequiredMixin
+from utils.LoginRequiredMixin import LoginRequiredMixin
 from .forms import LoginForm, MessageForm
 from .models import Message
 
@@ -43,7 +43,7 @@ class LogoutView(View):
         return HttpResponseRedirect(reverse("login"))
 
 
-class MessageView(View):
+class MessageView(LoginRequiredMixin, View):
     """
     意见
     """

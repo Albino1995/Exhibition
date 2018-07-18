@@ -12,7 +12,7 @@
 
 .head span {
     color: #ffffff;
-    font-size: 36px;
+    font-size: 23px;
 }
 
 .logout {
@@ -26,7 +26,7 @@
 }
 
 .nav {
-    font-size: 40px;
+    font-size: 25px;
     display: flex;
     justify-content: space-around;
     text-align: center;
@@ -42,7 +42,7 @@
 }
 
 .record {
-    margin: 50px 20px 20px 20px;
+    margin: 20px 20px 20px 20px;
     padding: 40px 70px 70px 70px;
     border: 1px solid #dddddd;
     border-radius: 20px;
@@ -56,7 +56,7 @@
 }
 
 .single_record span {
-    font-size: 36px;
+    font-size: 23px;
     color: #7e8c8d;
 }
 
@@ -64,6 +64,7 @@
     display: flex;
     justify-content: flex-end;
 }
+
 
 .no_record {
     display: flex;
@@ -75,11 +76,16 @@
 
 .cancel {
     margin-top: 30px;
-    font-size: 36px!important;
+    font-size: 23px!important;
 }
 
 .type {
-    margin-top: 30px;
+    margin-top: 40px;
     margin-left: 150px;
-    align-self: flex-end;
+}
+
+.paginations {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
 }

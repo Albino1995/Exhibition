@@ -10,7 +10,7 @@ def calculation_date(date):
     d2 = datetime(int(_date[0]), int(_date[1]), int(_date[2]))
     result = (d2 - d1).days
     if result < 0:
-        return '请选择合法的日期'
+        return '请选择今天以后的日期'
     if result > 14:
         return '请选择当天至之后14天内的日期'
     return ''

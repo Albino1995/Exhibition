@@ -39,15 +39,17 @@
                 <span>
                     {{ msg }}
                 </span>
+                <span class="tips">tips：可预约日期为明天开始的14天内</span>
             </div>
             <div class="field">
-                <span style="{% if flag %}display: inline{% endif %}">{{ date }}的预约情况如下：</span>
-                <span style="{% if flag %}display: inline{% endif %}">9:00 - 12:00场次的预约状态：
+
+                <span style="{% if flag %}display: inline{% endif %}">{{ date }}</span>
+                <span style="{% if flag %}display: inline{% endif %}">9:00 - 12:00场次：
                     {% if res.0 == 'empty' %}<span style="color: #31c27c;{% if flag %}display: inline{% endif %}"
                                                    onclick="go_reserve(this.id)" id="first_field">
                         可预约</span>{% else %}
                         <span style="color:#8b0000;{% if flag %}display: inline{% endif %}">已预约</span>{% endif %}</span>
-                <span style="{% if flag %}display: inline{% endif %}">14:00 - 17:00场次的预约状态：
+                <span style="{% if flag %}display: inline{% endif %}">14:00 - 17:00场次：
                     {% if res.1 == 'empty' %}<span style="color: #31c27c;{% if flag %}display: inline{% endif %}"
                                                    onclick="go_reserve(this.id)" id="last_field">
                         可预约</span>{% else %}
@@ -82,13 +84,25 @@
     function Schedule (opt) {
         var def = {},
             opt = extend(def,opt,true),
-            curDate = opt.date ? new Date(opt.date) : new Date(),
-            year = curDate.getFullYear(),
-            month = curDate.getMonth(),
-            day = curDate.getDate(),
-            currentYear = curDate.getFullYear(),
-            currentMonth = curDate.getMonth(),
-            currentDay = curDate.getDate(),
+            curDate = opt.date ? new Date(opt.date) : new Date();
+            console.log('{{ new_date }}');
+            if ({{ new_date }} === 0) {
+                year = curDate.getFullYear(),
+                month = curDate.getMonth(),
+                day = curDate.getDate(),
+                currentYear = curDate.getFullYear(),
+                currentMonth = curDate.getMonth(),
+                currentDay = curDate.getDate()
+            } else {
+                newDate = new Date('{{ new_date }}');
+                console.log(newDate);
+                year = newDate.getFullYear(),
+                month = newDate.getMonth(),
+                day = newDate.getDate(),
+                currentYear = curDate.getFullYear(),
+                currentMonth = curDate.getMonth(),
+                currentDay = curDate.getDate()
+            }
             selectedDate = '',
             el = document.querySelector(opt.el) || document.querySelector('body'),
             _this = this;
@@ -121,13 +135,11 @@
         var init = function () {
             var scheduleHd = '<div class="schedule-hd">'+
                                 '<div>'+
-                                    '<span class="arrow icon iconfont icon-116leftarrowheads" id="prevYear" ></span>'+
                                     '<span class="arrow icon iconfont icon-112leftarrowhead" id="prevMonth"></span>'+
                                 '</div>'+
                                 '<div class="today"></div>'+
                                 '<div>'+
                                     '<span class="arrow icon iconfont icon-111arrowheadright" id="nextMonth"></span>'+
-                                    '<span class="arrow icon iconfont icon-115rightarrowheads" id="nextYear"></span>'+
                                 '</div>'+
                             '</div>'
             var scheduleWeek = '<ul class="week-ul ul-box">'+
@@ -211,6 +223,7 @@
         if (t[2].length == 1)
             t[2] = "0" + t[2];
         el.querySelector('.today').innerHTML = t[0] + "-" + t[1] + "-" + t[2]
+        sDate = el.querySelector('.today').innerHTML;
         }
         init();
     }

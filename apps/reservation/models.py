@@ -22,7 +22,8 @@ class Reservation(models.Model):
     type = models.CharField(default='待审核',
                             choices=(('待审核', '待审核'),
                                      ('已预约', '已预约'),
-                                     ('已完成', '已完成')),
+                                     ('已完成', '已完成'),
+                                     ('已取消', '已取消')),
                             max_length=10, verbose_name='场次状态')
     client_name = models.CharField(max_length=50, verbose_name='客户名称')
     client_level = models.CharField(max_length=10, verbose_name='客户级别')
@@ -45,7 +46,7 @@ class Reservation(models.Model):
         d1 = datetime.now()
         d2 = datetime(int(_date[0]), int(_date[1]), int(_date[2]))
         result = (d2 - d1).days
-        if result >= 0:
+        if result >= 0 or self.type == '已取消':
             return self.type
         else:
             self.type = '已完成'

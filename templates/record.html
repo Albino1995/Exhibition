@@ -27,19 +27,50 @@
                 <span>暂无记录</span>
             </div>
         {% endif %}
-        {% for record in records %}
+        {% for record in all_record.object_list %}
             <div class="single_record">
                 <span>{{ record.date }}{{ record.field }}场次</span>
+                <span>客户名称：*****{{ record.applicant|slice:"-2:" }}</span>
+                <span>预&nbsp;&nbsp;约&nbsp;&nbsp;者：*{{ record.client_name|slice:"-1:"  }}</span>
                 <form method="post" class="cancel_type">
                     {% csrf_token %}
-                    {% if record.expired_or_not != '已完成' %}
+                    {% if record.expired_or_not != '已完成' and record.expired_or_not != '已取消' %}
                     <input type="text" style="display: none" placeholder="" value="{{ record.id }}" name="id">
                     <button type="submit" class="btn btn-primary btn-lg cancel">取消预约</button>
                     {% endif %}
-                    <span class="type">{{ record.expired_or_not }}</span>
+                    {% if record.expired_or_not == '已完成' %}
+                        <span class="type">已完成</span>
+                    {% elif record.expired_or_not == '已取消' %}
+                        <span class="type" style="color: #8b0000">已取消</span>
+                    {% elif record.expired_or_not == '待审核' %}
+                        <span class="type" style="color: #ffA500">待审核</span>
+                    {% else %}
+                        <span class="type" style="color: #31c27c">已预约</span>
+                    {% endif %}
                 </form>
             </div>
         {% endfor %}
+        <div class="pagelist">
+        <nav class="paginations">
+            <ul class="pagination">
+                {% if all_record.has_previous %}
+                    <li><a href="?{{ all_record.previous_page_number.querystring }}" class="prev">上一页</a></li>
+                {% endif %}
+                {% for page in all_record.pages %}
+                    {% if page %}
+                        {% ifequal page all_record.number %}
+                            <li class="active"><a href="?{{ page.querystring }}">{{ page }}<span class="sr-only">(current)</span></a></li>
+                        {% else %}
+                            <li><a href="?{{ page.querystring }}">{{ page }}</a></li>
+                        {% endifequal %}
+                    {% endif %}
+                {% endfor %}
+                {% if all_record.has_next %}
+                    <li><a href="?{{ all_record.next_page_number.querystring }}">下一页</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
     </div>
 {% endblock %}
 </body>

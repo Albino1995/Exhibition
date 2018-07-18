@@ -12,7 +12,7 @@
 
 .head span {
     color: #ffffff;
-    font-size: 36px;
+    font-size: 23px;
 }
 
 .logout {
@@ -26,7 +26,7 @@
 }
 
 .nav {
-    font-size: 40px;
+    font-size: 25px;
     display: flex;
     justify-content: space-around;
     text-align: center;
@@ -78,11 +78,18 @@
     display: none;
     font-size: 30px;
     color: #7e8c8d;
+    margin-bottom: 10px;
 }
 
 .error-mes {
+    display: flex;
+    flex-direction: column;
     margin-top: 70px;
     padding: 0 20px;
-    font-size: 20px;
+    font-size: 23px;
     color: #ff0000;
+}
+
+.tips{
+    color: #7e8c8d;
 }

@@ -15,3 +15,8 @@ a, a:link, a:visited, a:hover, a:active {
     color: #7e8c8d!important;
     text-decoration: none!important;
 }
+
+input, select {
+    height: 60px!important;
+    font-size: 25px!important;
+}
