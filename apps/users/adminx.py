@@ -7,8 +7,8 @@ from xadmin import views
 from .models import Message
 
 class MessageAdmin:
-    list_display = ['user', 'mobile', 'message', 'add_time']
-    list_filter = ['user', 'mobile', 'message', 'add_time']
+    list_display = ['user', 'mobile', 'add_time']
+    list_filter = ['user', 'mobile', 'add_time']
     search_fields = ['user', 'message']
 
 
