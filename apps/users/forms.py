@@ -10,9 +10,9 @@ class LoginForm(forms.Form):
 
 class MessageForm(forms.Form):
     mobile = forms.CharField(required=True, max_length=20, error_messages={'required': '请输入联系方式',
-                                                                           'max_length': '联系方式请勿长于20字节'}
+                                                                           'max_length': '联系方式请勿长于20字'}
                              )
 
     message = forms.CharField(required=True, max_length=200, error_messages={'required': '请输入意见或建议',
-                                                                            'max_length': '意见或建议请勿长于200字节'}
+                                                                            'max_length': '意见或建议请勿长于200字'}
                               )

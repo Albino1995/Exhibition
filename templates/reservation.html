@@ -67,7 +67,7 @@
             </div>
             <div class="input-group-lg">
                 <label>备注 </label>
-                <textarea id="remark" class="form-control" style="height: 200px" placeholder="" name="remarks" maxlength="50">{{ reservation_form.data.remarks }}</textarea>
+                <textarea id="remark" class="form-control" style="height: 200px" placeholder="" name="remarks">{{ reservation_form.data.remarks }}</textarea>
             </div>
             <div class="error-mes">
                 {% for key,error in reservation_form.errors.items %}
