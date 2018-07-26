@@ -66,7 +66,7 @@ class CheckView(LoginRequiredMixin, View):
             # return render_to_response(request, 'reservation.html', {'reservation_form': reservation_form})
         if calculation_date(date) != '':
             return render(request, 'index.html', {'msg': calculation_date(date), 'new_date': 0})
-        query = Reservation.objects.filter(date=date)
+        query = Reservation.objects.filter(date=date).exclude(type='已取消')
         for q in query:
             if q.field.startswith('9'):
                 res[0] = 'full'
