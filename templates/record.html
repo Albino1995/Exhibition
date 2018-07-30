@@ -13,14 +13,6 @@
 </head>
 <body>
 {% block content %}
-    <div class="content">
-        <nav class="nav">
-            <a class="check" href="{% url 'index' %}">预约查询</a>
-            <a class="reservation" href="{% url 'reservation' %}">预约展厅</a>
-            <a class="recording active" href="{% url 'record' %}">预约记录</a>
-            <a class="message" href="{% url 'suggestion' %}">提交意见</a>
-        </nav>
-    </div>
     <div class="record">
         {% if not records %}
             <div class="no_record">
@@ -30,8 +22,8 @@
         {% for record in all_record.object_list %}
             <div class="single_record">
                 <span>{{ record.date }}{{ record.field }}场次</span>
-                <span>客户名称：*****{{ record.applicant|slice:"-2:" }}</span>
-                <span>预&nbsp;&nbsp;约&nbsp;&nbsp;者：*{{ record.client_name|slice:"-1:"  }}</span>
+                <span>客户名称：*****{{ record.client_name|slice:"-2:" }}</span>
+                <span>预&nbsp;&nbsp;约&nbsp;&nbsp;者：*{{ record.applicant|slice:"-1:"  }}</span>
                 <form method="post" class="cancel_type">
                     {% csrf_token %}
                     {% if record.expired_or_not != '已完成' and record.expired_or_not != '已取消' %}
@@ -73,5 +65,12 @@
     </div>
     </div>
 {% endblock %}
+{% block footer %}<div class="foot_"><span>Copyright ©2018 Albino</span></div>{% endblock %}
 </body>
+{% block scripts %}
+    <script>
+        $('#recording').addClass('active')
+        $('.head-margin').css('margin-top', '195px')
+    </script>
+{% endblock %}
 </html>

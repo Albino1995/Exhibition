@@ -20,3 +20,72 @@ input, select {
     height: 60px!important;
     font-size: 25px!important;
 }
+
+.head {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.navigation-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 15px;
+    background-color: #31c27c;
+}
+
+.head span {
+    color: #ffffff;
+    font-size: 23px;
+}
+
+.logout {
+    padding: 2px 20px;
+    line-height: 28px;
+    border-radius: 25px;
+    font-size: 30px;
+    background: #149c5a;
+    color: #ffffff;
+    border: none;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+}
+
+.nav {
+    font-size: 25px;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.nav a {
+    padding: 25px;
+    width: 25%;
+}
+
+.active {
+    border-bottom: 5px solid #31c27c;
+}
+
+.head-margin {
+    margin-top: 175px;
+}
+
+.foot {
+    position: absolute;
+    width: 100%;
+    top: 100%;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+.foot span {
+    color: #7e8c8d;
+}

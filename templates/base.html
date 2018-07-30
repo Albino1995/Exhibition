@@ -13,14 +13,26 @@
 <body>
 {% block head %}
     <div class="head">
-        <span>{{ request.user.username }}，欢迎使用展厅预约服务</span>
-        <button class="logout">
-            <a href="{% url 'logout' %}"><span style="color: #fff">退出登录</span></a>
-        </button>
+        <div class="navigation-bar">
+            <span>{{ request.user.username }}，欢迎使用展厅预约服务</span>
+            <button class="logout">
+                <a href="{% url 'logout' %}"><span style="color: #fff">退出登录</span></a>
+            </button>
+        </div>
+        <div class="content">
+            <nav class="nav">
+                <a class="check" id="check" href="{% url 'index' %}">预约查询</a>
+                <a class="reservation" id="reservation" href="{% url 'reservation' %}">预约展厅</a>
+                <a class="recording" id="recording" href="{% url 'record' %}">预约记录</a>
+                <a class="message" id="message" href="{% url 'suggestion' %}">提交意见</a>
+            </nav>
+        </div>
     </div>
+    <div class="head-margin"></div>
 {% endblock %}
 {% block content %}
 {% endblock %}
+{% block footer %}<div class="foot"><span>Copyright ©2018 Albino</span></div>{% endblock %}
 </body>
 
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>

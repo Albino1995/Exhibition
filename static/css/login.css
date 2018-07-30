@@ -1,4 +1,4 @@
-.content {
+.login-content {
     display: flex;
     justify-content: center;
     margin-top: 200px;
@@ -48,4 +48,13 @@ button {
 .error-mes {
     color: #ff0000;
     font-size: 23px
+}
+
+.foot {
+    position: relative!important;
+    width: 100%;
+    margin-top: 450px;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
 }

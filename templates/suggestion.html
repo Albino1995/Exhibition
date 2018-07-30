@@ -13,14 +13,6 @@
 </head>
 <body>
 {% block content %}
-    <div class="content">
-        <nav class="nav">
-            <a class="check" href="{% url 'index' %}">预约查询</a>
-            <a class="reservation" href="{% url 'reservation' %}">预约展厅</a>
-            <a class="recording" href="{% url 'record' %}">预约记录</a>
-            <a class="message active" href="{% url 'suggestion' %}">提交意见</a>
-        </nav>
-    </div>
     <div class="suggestion">
         <form class="form" method="post" action="" id="suggestion">
             {% csrf_token %}
@@ -48,6 +40,9 @@
 {% endblock %}
 </body>
 {% block scripts %}
+    <script>
+        $('#message').addClass('active')
+    </script>
     <script>
         if ({{ flag }} == 0) {
             document.getElementById('success').style.display = 'none';
